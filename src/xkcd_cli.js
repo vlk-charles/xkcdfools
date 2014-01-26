@@ -419,7 +419,7 @@ Adventure = {
 		4:{description:'This is what we\'re gonna do.', exits:{east:3, west:5}},
 		5:{description:'Sun in wintertime.', exits:{east:4, west:6}},
 		6:{description:'We will do just fine.', exits:{east:5, west:7}},
-		7:{description:'Where the skies are blue.', exits:{east:6, west:8}},
+		7:{description:'Where the skies are blue.', exits:{east:12, west:8}},
 		8:{description:'This is what we\'re gonna do.', exits:{east:7}},
 		10:{description:'A dark hallway.', exits:{north:0, south:11}, enter:function(terminal) {
 				if (!Adventure.status.lamp) {
@@ -429,7 +429,18 @@ Adventure = {
 				}
 			}
 		},
-		11:{description:'Bed. This is where you sleep.', exits:{north:10}},
+		11:{description:'Bed. This is where you sleep.', exits:{north:10, bed:15}},
+		15:{description:'You snuggle in.', enter:function(terminal) {
+				TerminalShell.commands['sleep'](terminal);
+				Adventure.location = Adventure.rooms[11];
+			}
+		},
+		12:{description:'We will do just fine.', exits:{east:5, west:13}},
+		13:{description:'Where the skies are blue.', exits:{east:6, west:8, south:14}},
+		14:{description:'You enter a magical teleporter.', enter:function(terminal) {
+				Adventure.goTo(terminal, randomChoice(Object.keys(Adventure.rooms)));
+			}
+		},
 		666:{description:'You\'re dead!'}
 	},
 	
