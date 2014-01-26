@@ -463,12 +463,7 @@ TerminalShell.commands['look'] = Adventure.look = function(terminal) {
 	terminal.print(Adventure.location.description);	
 	if (Adventure.location.exits) {
 		terminal.print();
-		
-		var possibleDirections = [];
-		$.each(Adventure.location.exits, function(name, id) {
-			possibleDirections.push(name);
-		});
-		terminal.print('Exits: '+possibleDirections.join(', '));
+		terminal.print('Exits: '+Object.keys(Adventure.location.exits).join(', '));
 	}
 };
 
